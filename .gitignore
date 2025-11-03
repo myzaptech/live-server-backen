@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Environment variables (NO subir al repo)
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Streams generados
+streams/
+*.ts
+*.m3u8
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
