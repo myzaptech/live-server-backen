@@ -11,7 +11,37 @@ const config = require('./config');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: config.server.corsOrigin }));
+// Configurar CORS para permitir el dominio específico y localhost
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:8080',
+      'http://localhost:5000',
+      'http://myzaptech.site',
+      'https://myzaptech.site',
+      'http://www.myzaptech.site',
+      'https://www.myzaptech.site'
+    ];
+    
+    // Permitir requests sin origin (como mobile apps o curl)
+    if (!origin) return callback(null, true);
+    
+    // Si CORS_ORIGIN es *, permitir todos
+    if (config.server.corsOrigin === '*') {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('combined')); // Logging de requests HTTP
 
