@@ -5,7 +5,9 @@ module.exports = {
   server: {
     port: process.env.PORT || 3000,
     env: process.env.NODE_ENV || 'development',
-    corsOrigin: process.env.CORS_ORIGIN || '*'
+    corsOrigin: process.env.CORS_ORIGIN || '*',
+    domain: process.env.DOMAIN || 'localhost',
+    protocol: process.env.NODE_ENV === 'production' ? 'https' : 'http'
   },
 
   // Configuración del servidor RTMP y HLS

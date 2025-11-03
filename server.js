@@ -321,7 +321,10 @@ app.get('/api/stream/url', (req, res) => {
   }
   
   const streamKey = config.streamKey;
-  const hlsUrl = `http://localhost:${config.http.port}/live/${streamKey}/index.m3u8`;
+  // Construir URL según el entorno
+  const domain = config.server.domain;
+  const protocol = config.server.protocol;
+  const hlsUrl = `${protocol}://${domain}/live/${streamKey}/index.m3u8`;
   
   res.json({
     success: true,
@@ -329,7 +332,8 @@ app.get('/api/stream/url', (req, res) => {
     data: {
       hlsUrl,
       streamKey,
-      httpPort: config.http.port
+      httpPort: config.http.port,
+      domain: domain
     }
   });
 });
